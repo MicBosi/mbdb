@@ -1,0 +1,43 @@
+TODO:
+
+- Unit tests.
+- Allow multiple instances.
+- Add to composer.
+- Support non-localhost servers including 127.0.0.1 to use non-UNIX socket if problematic in chrooted environments.
+- It would be nice not having to end inserts and updates with with query(), (queryOne()/queryFirst()/queryAll() are fine) -> create query object and then run it?
+- It would be nice not having to repeat the selected column in the query*() command.
+
+OTHER IDEAS:
+
+Another way of doing it would be:
+
+mbdb::update("ActionHistory", [
+        "completed_time" => time(),
+    ],
+    mbdb::where("id=%s", $id),
+    mbdb::orderByAsc("id"),
+    mbdb::limit(10)
+);
+
+which removes the need for the final query
+and makes the query clauses order-independent
+
+vs
+
+mbdb::update("ActionHistory", [
+    "completed_time" => time(),
+])
+->where("id=%s", $id)
+->orderByAsc("id")
+->limit(10)
+->query();
+
+vs
+
+$q = Query::update("ActionHistory", [
+    "completed_time" => time(),
+])
+->where("id=%s", $id)
+->orderByAsc("id")
+->limit(10);
+mbdb::query($q);
