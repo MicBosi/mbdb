@@ -1,6 +1,6 @@
 # MBDB
 
-MBDB is a minimalistic yet powerful PHP wrapper around mysqli.
+MBDB is a minimalist yet powerful PHP wrapper around mysqli.
 
 License: https://opensource.org/licenses/MIT
 
